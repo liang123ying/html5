@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Document</title>
+<style>
+*{margin:0; padding:0; list-style:none;}
+.frame{ width:432px; height:432px; position:relative; margin:150px auto; background:#126329; border-radius:50%; border:2px solid #37573f;}
+.clock{width:426px; height:426px; border-radius:50%; position:absolute; top:50%; left:50%; background:#61b44c; z-index:100; margin:-213px 0 0 -213px;}
+.dish{ width:336px; height:336px; position:absolute; top:45px; left:45px; border-radius:50%; background:#fff; z-index:20; border:2px solid #2c6d1d;}
+.bigcir{ width:320px; height:320px; position:absolute; top:50%; left:50%; margin:-165px 0 0 -165px; border:5px solid #69a938; border-radius:50%; z-index:120;}
+.circle{ width:288px; height:288px; border-radius:50%; border:1px solid #759e6f; position:absolute; top:50%; left:50%; margin:-145px 0 0 -145px;}
+.dish span{transform-origin:center bottom;}
+.big{ position:absolute; width:10px; height:60px; top:50%; left:50%; background:#106426; margin-top:-60px; margin-left:-5px; border-radius:50% 50% 0 0; }
+.middle{ width:10px; height:90px; top:50%; left:50%; background:#106426; margin-left:-5px; margin-top:-90px; position:absolute; border-radius:50% 50% 0 0;}
+.small{ width:4px; height:110px; top:50%; left:50%; background:#7d1a27; margin-left:-2px; margin-top:-110px; position:absolute; border-radius:50% 50% 0 0;}
+.risk{ position:absolute; width:20px; height:20px; top:50%; left:50%; margin:-15px 0 0 -15px; background:-webkit-radial-gradient(#0e9944,#248436); border-radius:50%; border:5px solid #076a2d;}
+.dish b{ width:8px; height:8px; border-radius:50%; background:#33774a; position:absolute; left:50%; margin-left:-4px; transform-origin:center 148px; top:20px;}
+.dish .deep{ background:#000; }
+.dish .deep em{ font-style:normal; position:absolute; top:10px; left:-4px; font-size:26px; color:#4e926b; font-family:微软雅黑;}
+.ear_left{ width:140px; height:140px; border:2px solid #135223; background:#126329; border-radius:50%; z-index:1; position:absolute; top:0; left:-5px;}
+.left,.right{ width:140px; height:140px; background:#5cb251; border-radius:50%; position:absolute; top:6px; z-index:1;}
+.left{left:0;}
+.right{right:0;}
+.ear_right{ width:140px; height:140px; border:2px solid #135223; background:#126329; border-radius:50%; z-index:1; position:absolute; top:0; right:-5px;}
+.left p,.right p{ width:50px; height:50px; position:absolute; top:20px; border-radius:50%; background:#251717; left:50%; margin-left:-25px;}
+.left p span,.right p span{ width:28px; height:28px; border-radius:50%; background:#fff; position:absolute; top:10px;}
+.left p span{ right:5px;}
+.right p span{ left:5px;}
+.eye_left,.eye_right{ width:8px; height:8px; background:#875017; border-radius:50%; position:absolute; top:30px; left:50%; }
+.eye_left{ margin-left:-20px;}
+.eye_right{ margin-left:20px;}
+</style>
+<script>
+window.onload=function(){
+	var oClock=document.querySelector('.clock');
+	var oHour=document.querySelector('.big');
+	var oMidd=document.querySelector('.middle');
+	var oSmal=document.querySelector('.small');
+	var oDish=document.querySelector('.dish');
+	
+	function clock(){
+		var oDate=new Date();
+		var h=oDate.getHours();
+		var m=oDate.getMinutes();
+		var s=oDate.getSeconds();
+
+		oHour.style.transform='rotate('+(h/12*360+m/3600*360)+'deg)'; 
+		oMidd.style.transform='rotate('+(m/60*360+s/3600*360)+'deg)';
+		oSmal.style.transform='rotate('+s/60*360+'deg)';         		
+	}
+
+	setInterval(clock,1000);   
+	clock();
+
+	for(var i=0;i<60;i++){
+		var oB=document.createElement('b');
+		if(i%5==0){
+			var n=i/5==0?12:i/5;
+			oB.className='deep';
+			oB.innerHTML='<em>'+n+'</em>';
+			oB.children[0].style.transform='rotate('+-i*6+'deg)';
+		}
+		oB.style.transform='rotate('+i*6+'deg)';
+		oDish.appendChild(oB);
+	}
+};
+</script>
+</head>
+<body>
+<div class="frame">
+	<div class="ear_left"></div>
+	<div class="ear_right"></div>
+	<div class="clock">
+		<div class="left"><p><span></span></p></div>
+		<div class="right"><p><span></span></p></div>
+		<span class="eye_left"></span><span class="eye_right"></span>
+		<div class="dish">
+			<div class="bigcir"></div>
+			<div class="circle"></div>
+			<span class="big"></span>
+			<span class="middle"></span>
+			<span class="small"></span>
+			<span class="risk"></span>
+		</div>
+	</div>	
+</div>
+</body>
+</html>
